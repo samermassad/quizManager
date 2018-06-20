@@ -22,6 +22,8 @@ public class QuestionDAO extends GenericORMDao<Question> {
 		// TODO as bonus : let the whereclausebuilder generate this map thanks to introspection
 		final Map<String, Object> parameters = new LinkedHashMap<>();
 		parameters.put("type", entity.getType());
+		parameters.put("type", entity.getType());
+		parameters.put("question", entity.getQuestion());
 		parameters.put("question", "%" + entity.getQuestion() + "%");
 		wcb.setParameters(parameters);
 		return wcb;

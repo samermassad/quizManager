@@ -70,9 +70,9 @@
 		<constructor-arg>
 			<value><![CDATA[
 			from Question as question where
-				question.type = :type
+				(:type is null or question.type = :type)
 			and
-				question.question like :question
+				(:question is null or question.question like :question)
 		]]></value>
 		</constructor-arg>
 	</bean>

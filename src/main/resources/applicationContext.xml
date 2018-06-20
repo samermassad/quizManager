@@ -72,7 +72,7 @@
 			from Question as question where
 				question.type = :type
 			and
-				question.question = :question
+				question.question like :question
 		]]></value>
 		</constructor-arg>
 	</bean>

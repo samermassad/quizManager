@@ -1,5 +1,6 @@
 package fr.epita.quiz.datamodel;
 
+import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -11,7 +12,7 @@ import javax.persistence.Table;
 
 
 @Entity
-public class UserLogin {
+public class UserLogin implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

@@ -15,12 +15,17 @@
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 
+		<!--
 		<property name="driverClassName"
 			value="org.apache.derby.jdbc.ClientDriver" />
-		  <property name="url"
-			value="jdbc:derby:memory:testDS;create=true" /> 
-		<!-- <property name="url" value="jdbc:derby://localhost:1527/QuizManager;create=true" 
-			/>-->
+		<property name="url"
+			value="jdbc:derby://localhost:1527/QuizManager;create=true" />
+		-->
+
+		<!----> <property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver" 
+			/> <property name="url" value="jdbc:derby:memory:testDS;create=true" /> <!---->
+
+
 		<property name="username" value="root" />
 		<property name="password" value="password" />
 	</bean>
@@ -56,7 +61,8 @@
 		class="fr.epita.quiz.services.MCQChoiceDAO"></bean>
 	<bean id="examDAO" class="fr.epita.quiz.services.ExamDAO"></bean>
 	<bean id="userDAO" class="fr.epita.quiz.services.UserDAO"></bean>
-	<bean id="relDAO" class="fr.epita.quiz.services.ExamQuestionRelDAO"></bean>
+	<bean id="relDAO"
+		class="fr.epita.quiz.services.ExamQuestionRelDAO"></bean>
 	<bean id="authService"
 		class="fr.epita.quiz.services.AuthenticationService"></bean>
 
@@ -64,9 +70,18 @@
 		<constructor-arg>
 			<value><![CDATA[
 			from Question as question where
-				question.type = :type
+				(:type is null or question.type = :type)
 			and
-				question.question = :question
+				(:question is null or question.question like :question)
+		]]></value>
+		</constructor-arg>
+	</bean>
+
+	<bean id="examQuery" class="java.lang.String">
+		<constructor-arg>
+			<value><![CDATA[
+			from Exam as exam where
+				(:name is null or exam.name like :name)
 		]]></value>
 		</constructor-arg>
 	</bean>
@@ -85,7 +100,8 @@
 
 	<bean id="questionOperationService"
 		class="fr.epita.quiz.services.QuestionOperationService"></bean>
-	<bean id="ExamOperationService"
+
+	<bean id="examOperationService"
 		class="fr.epita.quiz.services.ExamOperationService"></bean>
 
 

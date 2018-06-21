@@ -16,14 +16,14 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 
 		<!---->
-		<property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver"/>
-		<property name="url" value="jdbc:derby://localhost:1527/QuizManager;create=true"/>
+		<property name="driverClassName"
+			value="org.apache.derby.jdbc.ClientDriver" />
+		<property name="url"
+			value="jdbc:derby://localhost:1527/QuizManager;create=true" />
 		<!---->
 
-		<!-- 
-		<property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver" />
-		<property name="url" value="jdbc:derby:memory:testDS;create=true" />
-		 -->
+		<!-- <property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver" 
+			/> <property name="url" value="jdbc:derby:memory:testDS;create=true" /> -->
 
 
 		<property name="username" value="root" />
@@ -77,6 +77,15 @@
 		</constructor-arg>
 	</bean>
 
+	<bean id="examQuery" class="java.lang.String">
+		<constructor-arg>
+			<value><![CDATA[
+			from Exam as exam where
+				(:name is null or exam.name like :name)
+		]]></value>
+		</constructor-arg>
+	</bean>
+
 	<bean id="userQuery" class="java.lang.String">
 		<constructor-arg>
 			<value><![CDATA[
@@ -91,6 +100,9 @@
 
 	<bean id="questionOperationService"
 		class="fr.epita.quiz.services.QuestionOperationService"></bean>
+
+	<bean id="examOperationService"
+		class="fr.epita.quiz.services.ExamOperationService"></bean>
 
 
 </beans>

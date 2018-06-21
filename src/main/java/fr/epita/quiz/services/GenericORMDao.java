@@ -115,7 +115,7 @@ public abstract class GenericORMDao<T> {
 		for (final Entry<String, Object> parameterEntry : wcb.getParameters().entrySet()) {
 			if(parameterEntry.getValue() == null) {
 				System.out.println("Parameter Value is null");
-				searchQuery.setParameter(parameterEntry.getKey(), null);
+				searchQuery.setParameter(parameterEntry.getKey(), "");
 			} else {
 				System.out.println("Parameter Value: " + parameterEntry.getValue());
 				searchQuery.setParameter(parameterEntry.getKey(), parameterEntry.getValue());

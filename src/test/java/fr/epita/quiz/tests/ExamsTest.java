@@ -54,7 +54,7 @@ public class ExamsTest {
 		
 		// then
 		Exam examCriteria = new Exam();
-		examCriteria.setId(exam.getId());
+		examCriteria.setName("ava");
 		
 		List<Exam> results = examDao.search(examCriteria);
 		Assert.assertNotEquals(0, results.size());

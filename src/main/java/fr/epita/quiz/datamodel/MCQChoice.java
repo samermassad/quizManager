@@ -1,5 +1,7 @@
 package fr.epita.quiz.datamodel;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +11,7 @@ import javax.persistence.ManyToOne;
 
 
 @Entity
-public class MCQChoice {
+public class MCQChoice implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

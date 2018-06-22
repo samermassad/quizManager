@@ -102,7 +102,7 @@
 			from Exam as exam where
 				(:id is null or exam.id = :id)
 			and
-				(:name is null or exam.name like :name)
+				(:name is null or exam.name = :name)
 		]]></value>
 		</constructor-arg>
 	</bean>

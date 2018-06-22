@@ -15,6 +15,4 @@ public class QuestionDAO extends GenericORMDao<Question> {
 	protected String getQuery() {
 		return query;
 	}
-
-	
 }

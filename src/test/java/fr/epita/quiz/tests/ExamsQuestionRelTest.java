@@ -22,8 +22,6 @@ import fr.epita.quiz.services.QuestionDAO;
 @ContextConfiguration(locations = { "/applicationContext.xml" })
 public class ExamsQuestionRelTest {
 
-	// private static final Logger LOGGER = LogManager.getLogger(ExamsTest.class);
-
 	@Inject
 	private QuestionDAO questionDao;
 
@@ -79,7 +77,6 @@ public class ExamsQuestionRelTest {
 		
 		ExamQuestionRel criteria = new ExamQuestionRel();
 		criteria.setExam(exam);
-		//criteria.setQuestion(question);
 		
 		List<ExamQuestionRel> results = relDao.search(criteria);
 		Assert.assertNotEquals(0, results.size());

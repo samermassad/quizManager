@@ -2,12 +2,12 @@ package fr.epita.quiz.datamodel;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+@SuppressWarnings("serial")
 @Entity
 public class Question implements Serializable {
 
@@ -62,8 +62,6 @@ public class Question implements Serializable {
 	}
 
 	/**
-	 * TODO:
-	 * Needs to be removed
 	 * @param id
 	 *            the id to set
 	 */

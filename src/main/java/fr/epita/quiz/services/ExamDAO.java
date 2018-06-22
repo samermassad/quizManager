@@ -5,7 +5,6 @@ import javax.inject.Named;
 
 import fr.epita.quiz.datamodel.Exam;
 
-
 public class ExamDAO extends GenericORMDao<Exam> {
 
 	@Inject
@@ -16,7 +15,4 @@ public class ExamDAO extends GenericORMDao<Exam> {
 	protected String getQuery() {
 		return query;
 	}
-	
-	
-
 }

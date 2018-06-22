@@ -1,5 +1,0 @@
-1. Fix database
-2. Test questions and choices
-3. create exams
-4. test exams
-5. 

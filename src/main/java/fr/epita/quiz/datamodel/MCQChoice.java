@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 
+@SuppressWarnings("serial")
 @Entity
 public class MCQChoice implements Serializable {
 
@@ -26,10 +27,16 @@ public class MCQChoice implements Serializable {
 	@ManyToOne
 	private Question question;
 
+	/**
+	 * Constructor
+	 */
 	public MCQChoice() {
 
 	}
 
+	/**
+	 * @return the choice
+	 */
 	public String getChoice() {
 		return choice;
 	}
@@ -43,7 +50,7 @@ public class MCQChoice implements Serializable {
 	}
 
 	/**
-	 * @return the valid
+	 * @return if valid
 	 */
 	public boolean isValid() {
 		return valid;
@@ -51,7 +58,7 @@ public class MCQChoice implements Serializable {
 
 	/**
 	 * @param valid
-	 *            the valid to set
+	 *            set validity
 	 */
 	public void setValid(boolean valid) {
 		this.valid = valid;
@@ -80,7 +87,6 @@ public class MCQChoice implements Serializable {
 	}
 
 	/**
-	 * TODO to be removed
 	 * @param id
 	 *            the id to set
 	 */

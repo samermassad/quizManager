@@ -1,31 +1,28 @@
 package fr.epita.quiz.services;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.logging.Logger;
 
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 
-import org.hibernate.Criteria;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.Restrictions;
 import org.hibernate.query.Query;
-
-import fr.epita.quiz.datamodel.QuestionType;
-import fr.epita.quiz.tests.QuestionsTests;
 
 public abstract class GenericORMDao<T> {
 
 	@Inject
 	SessionFactory sf;
 
-	// Create
+	private static final Logger LOGGER = LogManager.getLogger(GenericORMDao.class);
+	
 	public boolean beforeCreate(T entity) {
 		return entity != null;
 	}
@@ -41,7 +38,7 @@ public abstract class GenericORMDao<T> {
 			tx.commit();
 		} catch (Exception e) {
 			tx.rollback();
-			throw e;
+			LOGGER.error(e);
 		}
 
 	}
@@ -66,7 +63,7 @@ public abstract class GenericORMDao<T> {
 			tx.commit();
 		} catch (Exception e) {
 			tx.rollback();
-			throw e;
+			LOGGER.error(e);
 		}
 	}
 
@@ -90,7 +87,7 @@ public abstract class GenericORMDao<T> {
 			tx.commit();
 		} catch (Exception e) {
 			tx.rollback();
-			throw e;
+			LOGGER.error(e);
 		}
 	}
 
@@ -103,11 +100,11 @@ public abstract class GenericORMDao<T> {
 		return entity != null;
 	}
 
+	@SuppressWarnings("unchecked")
 	public final List<T> search(T entity) {
 
 		if (!beforeSearch(entity)) {
-			System.out.println("Entity Null!");
-			return null;
+			return new ArrayList<>();
 		}
 		final Session session = sf.openSession();
 		final WhereClauseBuilder<T> wcb = getWhereClauseBuilder(entity);
@@ -119,7 +116,6 @@ public abstract class GenericORMDao<T> {
 			}
 			searchQuery.setParameter(parameterEntry.getKey(), parameterEntry.getValue());
 		}
-		System.out.println(searchQuery.list().size());
 		return searchQuery.list();
 
 	}
@@ -139,12 +135,9 @@ public abstract class GenericORMDao<T> {
 		for (Field field : fields) {
 			field.setAccessible(true);
 			try {
-				// if (field.getName() == "id") { continue; }
-				System.out.println("Name: " + field.getName());
-				System.out.println("Entity: " + field.get(entity));
 				parameters.put(field.getName(), field.get(entity));
 			} catch (IllegalArgumentException | IllegalAccessException e) {
-				e.printStackTrace();
+				LOGGER.error(e);
 			}
 		}
 		wcb.setParameters(parameters);

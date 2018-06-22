@@ -4,13 +4,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-
 import fr.epita.quiz.datamodel.Exam;
 import fr.epita.quiz.datamodel.ExamQuestionRel;
-import fr.epita.quiz.datamodel.MCQChoice;
-import fr.epita.quiz.datamodel.Question;
 
 public class ExamOperationService {
 
@@ -20,8 +15,11 @@ public class ExamOperationService {
 	@Inject
 	private ExamDAO examDao;
 	
-//	@Transactional
-//  should be configured in spring
+	/**
+	 * Safely deletes an exam
+	 * @param exam
+	 * 		 the exam to delete
+	 */
 	public void deleteExam(Exam exam) {
 		
 		ExamQuestionRel criteria = new ExamQuestionRel();

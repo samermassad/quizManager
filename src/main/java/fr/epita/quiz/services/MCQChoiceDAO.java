@@ -13,8 +13,6 @@ public class MCQChoiceDAO extends GenericORMDao<MCQChoice> {
 	
 	@Override
 	public boolean beforeCreate(MCQChoice mcq) {
-		// TODO
-		// improve tests
 		return mcq.getChoice() != null && mcq.getQuestion() != null;
 	}
 

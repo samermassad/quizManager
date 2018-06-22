@@ -16,5 +16,3 @@ public class UserDAO extends GenericORMDao<UserLogin> {
 		return query;
 	}
 }
-
-

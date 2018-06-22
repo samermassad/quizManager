@@ -11,22 +11,24 @@ public class AuthenticationService {
 	@Inject
 	UserDAO userDao;
 
+	/**
+	 * Authentication Service
+	 * 
+	 * @param user
+	 * 		the user to login
+	 * @return
+	 * 		boolean
+	 */
 	public boolean authenticate(UserLogin user) {
 
 		if (user == null || user.getUserName() == null || user.getHashedPassword() == null) {
 			return false;
 		}
-
+		
 		List<UserLogin> results = userDao.search(user);
-//		System.out.println("Results size: " + results.size());
-//		for(UserLogin u: results) {
-//			System.out.println("Username: " + u.getUserName());
-//			System.out.println("Password: " + u.getHashedPassword());
-//		}
-		if (results.size() > 0)
+		if (!results.isEmpty())
 			return true;
-		else
-			return false;
+		return false;
 	}
 
 }

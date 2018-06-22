@@ -8,9 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 
+@SuppressWarnings("serial")
 @Entity
 public class UserLogin implements Serializable {
 
@@ -22,7 +22,7 @@ public class UserLogin implements Serializable {
 	private String hashedPassword;
 	
 	/**
-	 *
+	 * Constructor
 	 */
 	public UserLogin() {
 
@@ -54,8 +54,9 @@ public class UserLogin implements Serializable {
 	 * hashes the password before storing
 	 * 
 	 * @param clearTextPassword
+	 * @throws NoSuchAlgorithmException 
 	 */
-	public void setPassword(String clearTextPassword) {
+	public void setPassword(String clearTextPassword) throws NoSuchAlgorithmException {
 		this.hashedPassword = md5Hash(clearTextPassword);
 	}
 
@@ -70,8 +71,9 @@ public class UserLogin implements Serializable {
 	/**
 	 * @param passwordToHash
 	 * @return MD5 Hash of the password
+	 * @throws NoSuchAlgorithmException 
 	 */
-	private String md5Hash(String passwordToHash) {
+	private String md5Hash(String passwordToHash) throws NoSuchAlgorithmException {
 		if (passwordToHash == null)
 			return null;
 		String generatedPassword = null;
@@ -90,7 +92,7 @@ public class UserLogin implements Serializable {
 			// Get complete hashed password in hex format
 			generatedPassword = sb.toString();
 		} catch (NoSuchAlgorithmException e) {
-			// TODO: LOGGER.error("Error occured while hashing the password of the user:" + this, e);
+			throw e;
 		}
 		return generatedPassword;
 	}

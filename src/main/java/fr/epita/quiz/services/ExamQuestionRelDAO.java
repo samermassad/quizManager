@@ -14,8 +14,7 @@ public class ExamQuestionRelDAO extends GenericORMDao<ExamQuestionRel> {
 	
 	@Override
 	protected String getQuery() {
-		// TODO Auto-generated method stub
-		return null;
+		return query;
 	}
 
 	

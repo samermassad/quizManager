@@ -15,16 +15,17 @@
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 
-		<!---->
+	<!-- Production Database -->
 		<property name="driverClassName"
 			value="org.apache.derby.jdbc.ClientDriver" />
 		<property name="url"
 			value="jdbc:derby://localhost:1527/QuizManager;create=true" />
-		<!---->
+	<!---->
 
-		<!-- <property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver" 
-			/> <property name="url" value="jdbc:derby:memory:testDS;create=true" /> -->
-
+	<!-- Memory database 
+		<property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver" 
+			/> <property name="url" value="jdbc:derby:memory:testDS;create=true" /> 
+	-->
 
 		<property name="username" value="root" />
 		<property name="password" value="password" />
@@ -102,7 +103,7 @@
 			from Exam as exam where
 				(:id is null or exam.id = :id)
 			and
-				(:name is null or exam.name like :name)
+				(:name is null or exam.name = :name)
 		]]></value>
 		</constructor-arg>
 	</bean>

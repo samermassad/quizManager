@@ -1,11 +1,16 @@
 package fr.epita.quiz.services;
 
-import java.util.LinkedHashMap;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import fr.epita.quiz.datamodel.MCQChoice;
 
 public class MCQChoiceDAO extends GenericORMDao<MCQChoice> {
 
+	@Inject
+	@Named("mcqQuery")
+	String query;
+	
 	@Override
 	public boolean beforeCreate(MCQChoice mcq) {
 		// TODO
@@ -13,21 +18,10 @@ public class MCQChoiceDAO extends GenericORMDao<MCQChoice> {
 		return mcq.getChoice() != null && mcq.getQuestion() != null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see fr.epita.quiz.services.GenericORMDao#getWhereClauseBuilder(java.lang.Object)
-	 */
 	@Override
-	protected WhereClauseBuilder<MCQChoice> getWhereClauseBuilder(MCQChoice entity) {
-		final WhereClauseBuilder<MCQChoice> whereClauseBuilder = new WhereClauseBuilder<>();
-		whereClauseBuilder.setParameters(new LinkedHashMap<>());
-
-		// TODO : load from configuration
-		final String query = "from MCQChoice";
-
-		whereClauseBuilder.setQueryString(query);
-		return whereClauseBuilder;
-
+	protected String getQuery() {
+		return query;
 	}
+
 
 }

@@ -16,7 +16,7 @@ public class UserLogin implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int uid;
+	private int id;
 	
 	private String userName;
 	private String hashedPassword;
@@ -98,14 +98,14 @@ public class UserLogin implements Serializable {
 	/**
 	 * @return the uid
 	 */
-	public int getUid() {
-		return uid;
+	public int getId() {
+		return id;
 	}
 
 	/**
 	 * @param uid the uid to set
 	 */
-	public void setUid(int uid) {
-		this.uid = uid;
+	public void setId(int id) {
+		this.id = id;
 	}
 }

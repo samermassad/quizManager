@@ -42,49 +42,47 @@ public class QuestionsTests {
 	@Inject
 	SessionFactory factory;
 
-//	@Test
-//	public void create() {
-//		// given
-//		Assert.assertNotNull(questionDao);
-//		
-//		Question question = new Question();
-//		question.setQuestion("Create?");
-//		question.setType(QuestionType.MCQ);
-//		
-//		// when
-//		questionDao.create(question);
-//		
-//		// then
-//		Assert.assertNotNull(question.getId());
-//	}
-//	
-//	@Test
-//	public void searchAndUpdate() {
-//		// given
-//		Assert.assertNotNull(questionDao);
-//		
-//		Question question = new Question();
-//		question.setQuestion("Search?");
-//		question.setType(QuestionType.MCQ);
-//
-//		// when
-//		questionDao.create(question);
-//		
-//		// update
-//		question.setQuestion("Updated question!");
-//		questionDao.update(question);
-//
-//		// then
-//		List<Question> result1 = questionDao.search(question);
-//		Assert.assertEquals("Updated question!", result1.get(0).getQuestion());
-//		
-//	}
-	
 	@Test
-	public void delete() {
+	public void create() {
 		// given
 		Assert.assertNotNull(questionDao);
 		
+		Question question = new Question();
+		question.setQuestion("Create?");
+		question.setType(QuestionType.MCQ);
+		
+		// when
+		questionDao.create(question);
+		
+		// then
+		Assert.assertNotNull(question.getId());
+	}
+	
+	@Test
+	public void searchAndUpdate() {
+		// given
+		Assert.assertNotNull(questionDao);
+		
+		Question question = new Question();
+		question.setQuestion("Search?");
+		question.setType(QuestionType.MCQ);
+
+		// when
+		questionDao.create(question);
+		
+		// update
+		question.setQuestion("Updated question!");
+		questionDao.update(question);
+
+		// then
+		List<Question> result1 = questionDao.search(question);
+		Assert.assertEquals("Updated question!", result1.get(0).getQuestion());
+		
+	}
+	
+	@Test
+	public void getAllQuestions() {
+		// given
 		Question question = new Question();
 		question.setQuestion("Save Question?");
 		question.setType(QuestionType.MCQ);
@@ -93,43 +91,67 @@ public class QuestionsTests {
 		question2.setQuestion("Save Question?");
 		question2.setType(QuestionType.MCQ);
 		
-		MCQChoice choice = new MCQChoice();
-		choice.setChoice("choice");
-		choice.setValid(true);
-		choice.setQuestion(question);
-		
-		MCQChoice choice2 = new MCQChoice();
-		choice2.setChoice("choice2");
-		choice2.setValid(false);
-		choice2.setQuestion(question);
-		
-		MCQChoice choice3 = new MCQChoice();
-		choice3.setChoice("choice2");
-		choice3.setValid(false);
-		choice3.setQuestion(question2);
-		
-		MCQChoice choice4 = new MCQChoice();
-		choice4.setChoice("choice2");
-		choice4.setValid(false);
-		choice4.setQuestion(question2);
-		
-		// when
 		questionDao.create(question);
 		questionDao.create(question2);
-		mcqDao.create(choice);
-		mcqDao.create(choice2);
-		mcqDao.create(choice3);
-		mcqDao.create(choice4);
+
+		// when
+		List<Question> result = questionDao.search(new Question());
 		
 		// then
-		MCQChoice criteria = new MCQChoice();
-		criteria.setQuestion(question);
+		Assert.assertNotEquals(0, result.size());
 		
-		//questionOps.deleteQuestion(question);
-		
-		List<MCQChoice> result = mcqDao.search(criteria);
-		System.out.println(result.size());
-		Assert.assertEquals(0, result.size());
+	}
+	
+//	@Test
+//	public void delete() {
+//		// given
+//		Assert.assertNotNull(questionDao);
+//		
+//		Question question = new Question();
+//		question.setQuestion("Save Question?");
+//		question.setType(QuestionType.MCQ);
+//		
+//		Question question2 = new Question();
+//		question2.setQuestion("Save Question?");
+//		question2.setType(QuestionType.MCQ);
+//		
+//		MCQChoice choice = new MCQChoice();
+//		choice.setChoice("choice");
+//		choice.setValid(true);
+//		choice.setQuestion(question);
+//		
+//		MCQChoice choice2 = new MCQChoice();
+//		choice2.setChoice("choice2");
+//		choice2.setValid(false);
+//		choice2.setQuestion(question);
+//		
+//		MCQChoice choice3 = new MCQChoice();
+//		choice3.setChoice("choice2");
+//		choice3.setValid(false);
+//		choice3.setQuestion(question2);
+//		
+//		MCQChoice choice4 = new MCQChoice();
+//		choice4.setChoice("choice2");
+//		choice4.setValid(false);
+//		choice4.setQuestion(question2);
+//		
+//		// when
+//		questionDao.create(question);
+//		questionDao.create(question2);
+//		mcqDao.create(choice);
+//		mcqDao.create(choice2);
+//		mcqDao.create(choice3);
+//		mcqDao.create(choice4);
+//		
+//		// then
+//		MCQChoice criteria = new MCQChoice();
+//		criteria.setQuestion(question);
+//		
+//		//questionOps.deleteQuestion(question);
+//		
+//		List<MCQChoice> result = mcqDao.search(criteria);
+//		System.out.println(result.size());
+//		Assert.assertEquals(0, result.size());
 		
 		
 		
@@ -147,6 +169,6 @@ public class QuestionsTests {
 //				
 //				result = mcqDao.search(criteria);
 //				Assert.assertEquals(0, result.size());
-	}
+//	}
 
 }

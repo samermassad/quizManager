@@ -1,6 +1,9 @@
 package fr.epita.quiz.services;
 
+import java.lang.reflect.Field;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
 
@@ -16,7 +19,6 @@ import org.hibernate.query.Query;
 
 import fr.epita.quiz.datamodel.QuestionType;
 import fr.epita.quiz.tests.QuestionsTests;
-
 
 public abstract class GenericORMDao<T> {
 
@@ -102,32 +104,52 @@ public abstract class GenericORMDao<T> {
 	}
 
 	public final List<T> search(T entity) {
-		
+
 		if (!beforeSearch(entity)) {
 			System.out.println("Entity Null!");
 			return null;
 		}
 		final Session session = sf.openSession();
-		
-		
 		final WhereClauseBuilder<T> wcb = getWhereClauseBuilder(entity);
-		final Query searchQuery = session.createQuery(wcb.getQueryString());
+
+		final Query<T> searchQuery = session.createQuery(wcb.getQueryString());
 		for (final Entry<String, Object> parameterEntry : wcb.getParameters().entrySet()) {
-			if(parameterEntry.getValue() == null) {
-				System.out.println("Parameter Value is null");
-				searchQuery.setParameter(parameterEntry.getKey(), "");
-			} else {
-				System.out.println("Parameter Value: " + parameterEntry.getValue());
-				searchQuery.setParameter(parameterEntry.getKey(), parameterEntry.getValue());
+			if (parameterEntry.getValue() == null) {
+				searchQuery.setParameter(parameterEntry.getKey(), null);
 			}
+			searchQuery.setParameter(parameterEntry.getKey(), parameterEntry.getValue());
 		}
+		System.out.println(searchQuery.list().size());
 		return searchQuery.list();
+
 	}
 
 	public boolean afterSearch(T entity) {
 		return true;
 	}
 
-	protected abstract WhereClauseBuilder getWhereClauseBuilder(T entity);
+	protected abstract String getQuery();
+
+	protected WhereClauseBuilder<T> getWhereClauseBuilder(T entity) {
+
+		final WhereClauseBuilder<T> wcb = new WhereClauseBuilder<>();
+		wcb.setQueryString(getQuery());
+		final Map<String, Object> parameters = new LinkedHashMap<>();
+		Field[] fields = entity.getClass().getDeclaredFields();
+		for (Field field : fields) {
+			field.setAccessible(true);
+			try {
+				// if (field.getName() == "id") { continue; }
+				System.out.println("Name: " + field.getName());
+				System.out.println("Entity: " + field.get(entity));
+				parameters.put(field.getName(), field.get(entity));
+			} catch (IllegalArgumentException | IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		}
+		wcb.setParameters(parameters);
+		return wcb;
+
+	}
 
 }

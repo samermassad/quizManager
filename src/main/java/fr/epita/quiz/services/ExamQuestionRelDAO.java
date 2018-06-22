@@ -1,20 +1,23 @@
 package fr.epita.quiz.services;
 
-import java.util.LinkedHashMap;
+import javax.inject.Inject;
+import javax.inject.Named;
 
-import fr.epita.quiz.datamodel.Exam;
 import fr.epita.quiz.datamodel.ExamQuestionRel;
 
 
 public class ExamQuestionRelDAO extends GenericORMDao<ExamQuestionRel> {
 
+	@Inject
+	@Named("examQuestionRelQuery")
+	String query;
+	
 	@Override
-	protected WhereClauseBuilder<ExamQuestionRel> getWhereClauseBuilder(ExamQuestionRel entity) {
-		final WhereClauseBuilder<ExamQuestionRel> wcb = new WhereClauseBuilder<>();
-		
-		wcb.setQueryString("from ExamQuestionRel");
-		wcb.setParameters(new LinkedHashMap<>());
-		return wcb;
+	protected String getQuery() {
+		// TODO Auto-generated method stub
+		return null;
 	}
+
+	
 
 }

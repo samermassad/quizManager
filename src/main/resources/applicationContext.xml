@@ -70,9 +70,28 @@
 		<constructor-arg>
 			<value><![CDATA[
 			from Question as question where
+				(:id is null or question.id = :id)
+			and
 				(:type is null or question.type = :type)
 			and
-				(:question is null or question.question like :question)
+				(:question is null or question.question = :question)
+		]]></value>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="mcqQuery" class="java.lang.String">
+		<constructor-arg>
+			<value><![CDATA[
+			from MCQChoice as mcqChoice where
+				(:id is null or mcqChoice.id = :id)
+			and
+				(:choice is null or mcqChoice.choice = :choice)
+			and
+				(:valid is null or mcqChoice.valid = :valid)
+			and
+				(:order is null or mcqChoice.order = :order)
+			and
+				(:question is null or mcqChoice.question = :question)
 		]]></value>
 		</constructor-arg>
 	</bean>
@@ -81,7 +100,22 @@
 		<constructor-arg>
 			<value><![CDATA[
 			from Exam as exam where
+				(:id is null or exam.id = :id)
+			and
 				(:name is null or exam.name like :name)
+		]]></value>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="examQuestionRelQuery" class="java.lang.String">
+		<constructor-arg>
+			<value><![CDATA[
+			from ExamQuestionRel as examQuestionRel where
+				(:id is null or examQuestionRel.id = :id)
+			and
+				(:question is null or examQuestionRel.question = :question)
+			and
+				(:exam is null or examQuestionRel.exam = :exam)
 		]]></value>
 		</constructor-arg>
 	</bean>
@@ -90,6 +124,8 @@
 		<constructor-arg>
 			<value><![CDATA[
 			from UserLogin as user where
+				(:id = 0 or user.id = :id)
+			and
 				user.userName = :userName
 			and
 				user.hashedPassword = :hashedPassword

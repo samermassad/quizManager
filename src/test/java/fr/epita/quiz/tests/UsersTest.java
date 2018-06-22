@@ -48,14 +48,14 @@ public class UsersTest {
 	public void createAndAuthenticate() {
 		// given
 		UserLogin user = new UserLogin();
-		user.setUserName("Samer");
-		user.setPassword("Masaad");
+		user.setUserName("root");
+		user.setPassword("root");
 		
 		// when
 		userDao.create(user);
 		
 		// then
-		Assert.assertNotNull(user.getUid());
+		Assert.assertNotNull(user.getId());
 		
 		// login
 		Assert.assertTrue(authService.authenticate(user));
@@ -78,7 +78,7 @@ public class UsersTest {
 		
 		// then
 		List<UserLogin> results = userDao.search(user);
-		Assert.assertNotNull(user.getUid());
+		Assert.assertNotNull(user.getId());
 		
 		for(UserLogin u : results) {
 			u.setUserName("Updated");
@@ -91,7 +91,7 @@ public class UsersTest {
 		results = userDao.search(criteria);
 		
 		for(UserLogin u : results) {
-			Assert.assertNotNull(u.getUid());
+			Assert.assertNotNull(u.getId());
 		}
 		
 	}
